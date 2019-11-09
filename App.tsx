@@ -1,9 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { AppLoading } from "expo";
-import { Container, Text, Body, Title, Header, Content } from "native-base";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
-import { ArticleList } from "./components/ArticleList";
+import Home from "./screens/Home";
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import Details from "./screens/Details";
+
+const AppNavigator = createStackNavigator(
+  {
+    Home: {
+      screen: Home
+    },
+    Details: {
+      screen: Details
+    }
+  },
+  {
+    navigationOptions: {
+      header: null
+    }
+  }
+);
+
+const AppContainer = createAppContainer(AppNavigator);
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
@@ -25,16 +45,5 @@ export default function App() {
     return <AppLoading />;
   }
 
-  return (
-    <Container>
-      <Header>
-        <Body>
-          <Title>Lobste.rs</Title>
-        </Body>
-      </Header>
-      <Content>
-        <ArticleList />
-      </Content>
-    </Container>
-  );
+  return <AppContainer />;
 }

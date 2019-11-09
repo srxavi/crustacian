@@ -54,6 +54,7 @@ export function ArticleList() {
           base_uri="https://lobste.rs"
           short_id={item.short_id}
           title={item.title}
+          article_url={item.url}
         />
       )}
       keyExtractor={(item: ArticleType) => item.short_id}
