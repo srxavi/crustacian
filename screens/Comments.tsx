@@ -1,13 +1,12 @@
 import React from "react";
 import { useNavigationParam } from "react-navigation-hooks";
-import WebView from "react-native-webview";
 
-const Details = () => {
+const Comments = () => {
   const url = useNavigationParam("url");
 
   console.log(url);
 
-  return <WebView source={{ uri: url }} />;
+  return <p>fake data</p>;
 };
 
-export default Details;
+export default Comments;

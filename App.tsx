@@ -5,23 +5,24 @@ import { Ionicons } from "@expo/vector-icons";
 import Home from "./screens/Home";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
-import Details from "./screens/Details";
+import Comments from "./screens/Comments";
+import { ThemeProvider } from "react-native-elements";
+import Author from "./screens/Author";
 
-const AppNavigator = createStackNavigator(
-  {
-    Home: {
-      screen: Home
-    },
-    Details: {
-      screen: Details
-    }
+const AppNavigator = createStackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: () => ({
+      title: "Lobste.rs"
+    })
   },
-  {
-    navigationOptions: {
-      header: null
-    }
+  Details: {
+    screen: Comments
+  },
+  Author: {
+    screen: Author
   }
-);
+});
 
 const AppContainer = createAppContainer(AppNavigator);
 
@@ -30,8 +31,6 @@ export default function App() {
 
   async function start() {
     await Font.loadAsync({
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
       ...Ionicons.font
     });
     setIsReady(true);
@@ -45,5 +44,9 @@ export default function App() {
     return <AppLoading />;
   }
 
-  return <AppContainer />;
+  return (
+    <ThemeProvider>
+      <AppContainer />
+    </ThemeProvider>
+  );
 }

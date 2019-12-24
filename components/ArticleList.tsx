@@ -1,16 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  ListItem,
-  Thumbnail,
-  Left,
-  Text,
-  Body,
-  List,
-  Spinner,
-  Item
-} from "native-base";
 import { Article } from "./Article";
-import { FlatList } from "react-native";
+import { FlatList, ActivityIndicator } from "react-native";
 
 type ArticleType = {
   short_id: string;
@@ -25,6 +15,7 @@ type ArticleType = {
 
 export function ArticleList() {
   const [isLoaded, setIsloaded] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState();
 
   const storeData = (data: Array<ArticleType>) => {
@@ -38,12 +29,18 @@ export function ArticleList() {
     );
   };
 
-  useEffect(() => {
+  const refreshData = () => {
+    setRefreshing(true);
     fetchData();
+    setRefreshing(false);
+  };
+
+  useEffect(() => {
+    refreshData();
   }, []);
 
   if (!isLoaded) {
-    return <Spinner />;
+    return <ActivityIndicator />;
   }
   return (
     <FlatList
@@ -55,9 +52,12 @@ export function ArticleList() {
           short_id={item.short_id}
           title={item.title}
           article_url={item.url}
+          author={item.submitter_user.username}
         />
       )}
       keyExtractor={(item: ArticleType) => item.short_id}
+      refreshing={refreshing}
+      onRefresh={refreshData}
     />
   );
 }
