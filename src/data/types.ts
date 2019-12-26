@@ -1,4 +1,4 @@
-export type User = {
+export type UserType = {
   username: string;
   created_at: string;
   is_admin: boolean;
@@ -11,8 +11,16 @@ export type User = {
 
 export type ArticleType = {
   short_id: string;
+  short_id_url: string;
+  created_at: string;
+  score: number;
+  upvotes: number;
+  downvotes: number;
+  comment_count: number;
+  description: string;
+  comments_url: string;
   url: string;
   title: string;
   tags: Array<string>;
-  submitter_user: User;
+  submitter_user: UserType;
 };

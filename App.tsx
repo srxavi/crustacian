@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
-import Home from "./screens/Home";
+import Home from "./src/screens/Home";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
-import Comments from "./screens/Comments";
+import Comments from "./src/screens/Comments";
 import { ThemeProvider } from "react-native-elements";
-import Author from "./screens/Author";
+import Author from "./src/screens/Author";
 
 const AppNavigator = createStackNavigator({
   Home: {
     screen: Home,
     navigationOptions: () => ({
-      title: "Lobste.rs"
+      title: "Top Stories"
     })
   },
   Comments: {
