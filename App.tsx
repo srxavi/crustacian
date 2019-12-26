@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import Home from "./screens/Home";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
@@ -16,7 +16,7 @@ const AppNavigator = createStackNavigator({
       title: "Lobste.rs"
     })
   },
-  Details: {
+  Comments: {
     screen: Comments
   },
   Author: {
@@ -30,9 +30,8 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   async function start() {
-    await Font.loadAsync({
-      ...Ionicons.font
-    });
+    await Font.loadAsync(Ionicons.font);
+    await Font.loadAsync(FontAwesome.font);
     setIsReady(true);
   }
 

@@ -1,11 +1,33 @@
 import React from "react";
-import { ListItem } from "react-native-elements";
+import { ListItem, Button } from "react-native-elements";
 import * as WebBrowser from "expo-web-browser";
+import { Text } from "react-native";
+import { useNavigation } from "react-navigation-hooks";
+import { User } from "../types";
+
+type SubProps = {
+  user: User;
+};
+function Substring(props: SubProps) {
+  const userUrl = `https://lobste.rs/u/${props.user.username}.json`;
+  const { navigate } = useNavigation();
+
+  return (
+    <Text
+      style={{ fontWeight: "200", color: "black", paddingTop: "2%" }}
+      onPress={() => {
+        navigate("Author", { url: userUrl, user: props.user });
+      }}
+    >
+      {props.user.username}
+    </Text>
+  );
+}
 
 type Props = {
   short_id: string;
   title: string;
-  author: string;
+  author: User;
   thumbnail: string;
   base_uri: string;
   article_url: string;
@@ -16,8 +38,7 @@ export function Article(props: Props) {
     <ListItem
       title={props.title}
       titleStyle={{ fontWeight: "600" }}
-      subtitle={props.author}
-      subtitleStyle={{ fontWeight: "200" }}
+      subtitle={<Substring user={props.author} />}
       leftAvatar={{ source: { uri: avatarUrl } }}
       bottomDivider
       onPress={async () => {

@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Article } from "./Article";
 import { FlatList, ActivityIndicator } from "react-native";
-
-type ArticleType = {
-  short_id: string;
-  url: string;
-  title: string;
-  tags: Array<string>;
-  submitter_user: {
-    username: string;
-    avatar_url: string;
-  };
-};
+import { ArticleType } from "../types";
 
 export function ArticleList() {
   const [isLoaded, setIsloaded] = useState(false);
@@ -52,7 +42,7 @@ export function ArticleList() {
           short_id={item.short_id}
           title={item.title}
           article_url={item.url}
-          author={item.submitter_user.username}
+          author={item.submitter_user}
         />
       )}
       keyExtractor={(item: ArticleType) => item.short_id}
