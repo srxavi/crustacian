@@ -1,22 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigationParam } from "react-navigation-hooks";
-import { ArticleType } from "../data/types";
-import { View, Text, StyleSheet } from "react-native";
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: "4%"
-  }
-});
+import { ArticleType, CommentType } from "../data/types";
+import { View } from "react-native";
+import CommentsHeader from "../components/CommentsHeader";
+import { Divider } from "react-native-elements";
+import CommentList from "../components/CommentList";
 
 const Comments = () => {
   const article: ArticleType = useNavigationParam("article");
+  const comments_url = `${article.short_id_url}.json`;
+  const [comments, setComments] = useState<Array<CommentType>>();
+
+  const fetchComments = async () => {
+    const res = await fetch(comments_url);
+    const data: ArticleType = await res.json();
+    setComments(data.comments);
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
 
   return (
     <View>
-      <Text style={styles.title}>{article.title}</Text>
+      <CommentsHeader article={article} />
+      <Divider style={{ marginTop: "5%" }} />
+      <CommentList comments={comments} />
     </View>
   );
 };

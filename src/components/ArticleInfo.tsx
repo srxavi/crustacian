@@ -7,7 +7,6 @@ import moment from "moment";
 
 export const styles = StyleSheet.create({
   info: {
-    flex: 1,
     flexDirection: "row",
     paddingTop: "2%"
   }
