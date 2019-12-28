@@ -4,6 +4,7 @@ import { Text, StyleSheet, View } from "react-native";
 import extractHostname from "../helpers/url";
 import { ArticleInfo } from "./ArticleInfo";
 import * as WebBrowser from "expo-web-browser";
+import { Divider } from "react-native-elements";
 
 type Props = {
   article: ArticleType;
@@ -29,14 +30,17 @@ export default function CommentsHeader(props: Props) {
   }
 
   return (
-    <View style={styles.view}>
-      <Text style={styles.title}>{props.article.title}</Text>
-      {url_string}
-      <ArticleInfo
-        user={props.article.submitter_user}
-        karma={props.article.score}
-        dateTime={props.article.created_at}
-      />
+    <View>
+      <View style={styles.view}>
+        <Text style={styles.title}>{props.article.title}</Text>
+        {url_string}
+        <ArticleInfo
+          user={props.article.submitter_user}
+          karma={props.article.score}
+          dateTime={props.article.created_at}
+        />
+      </View>
+      <Divider style={{ marginTop: "4%" }} />
     </View>
   );
 }

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigationParam } from "react-navigation-hooks";
 import { ArticleType, CommentType } from "../data/types";
-import { View } from "react-native";
+import { View, FlatList } from "react-native";
 import CommentsHeader from "../components/CommentsHeader";
-import { Divider } from "react-native-elements";
-import CommentList from "../components/CommentList";
+import Comment from "../components/Comment";
 
 const Comments = () => {
   const article: ArticleType = useNavigationParam("article");
@@ -23,9 +22,12 @@ const Comments = () => {
 
   return (
     <View>
-      <CommentsHeader article={article} />
-      <Divider style={{ marginTop: "5%" }} />
-      <CommentList comments={comments} />
+      <FlatList
+        ListHeaderComponent={<CommentsHeader article={article} />}
+        data={comments}
+        renderItem={({ item }) => <Comment comment={item} />}
+        keyExtractor={(item: CommentType) => item.short_id}
+      />
     </View>
   );
 };
